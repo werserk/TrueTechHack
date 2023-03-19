@@ -3,32 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css"
+          integrity="sha384-KtuplUXgNMAf2GoyNzMW3kbEaMVG6f5tA2z8YL+zlU5g5U6a5K6xm5H6v5zX9KZg" crossorigin="anonymous"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/library.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/player.css') }}">
+    <link rel="shortcut icon" href="../static/images/logotype_mini.png">
     <title>Video App</title>
 </head>
 <body>
 <header>
     <nav>
         <a href="{{ url_for('base') }}">Home</a>
-        <a href="{{ url_for('register') }}">Register</a>
-        <a href="{{ url_for('login') }}">Login</a>
         {% if current_user.is_authenticated %}
-        <a href="{{ url_for('library') }}">My Videos</a>
-        <a href="{{ url_for('upload') }}">Upload</a>
-        <a href="{{url_for('logout')}}">Logout</a>
+            <a href="{{ url_for('library') }}">My Videos</a>
+            <a href="{{ url_for('upload') }}">Upload</a>
+            <a class="right" href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a class="right" href="{{ url_for('register') }}">Register</a>
+            <a class="right" href="{{ url_for('login') }}">Login</a>
         {% endif %}
     </nav>
 </header>
 
 <main>
     {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <ul class="flash-messages">
-        {% for category, message in messages %}
-        <li class="{{ category }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+        {% if messages %}
+            <ul class="flash-messages">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% endwith %}
     {% block content %}{% endblock %}
 </main>

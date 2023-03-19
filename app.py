@@ -1,6 +1,6 @@
 import os.path
 
-from flask import abort, flash, Flask, redirect, render_template, url_for
+from flask import abort, flash, Flask, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, LoginManager, logout_user
 from werkzeug.security import check_password_hash
 
@@ -45,8 +45,6 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('upload'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -62,11 +60,10 @@ def login():
 @app.route('/upload', methods=['GET', 'POST'])
 @login_required
 def upload():
-    form = UploadForm()
-    if form.validate_on_submit():
-        video = form.video.data
+    form = UploadForm(request.form)
+    if request.method == 'POST':
+        video = request.files['video']
         processed_video_path = process_video(video)
-        print(processed_video_path)
         video.save(processed_video_path)
 
         video_entry = Video(filename=os.path.basename(processed_video_path), user_id=current_user.id)
@@ -110,7 +107,7 @@ def delete_video(video_id):
 @login_required
 def logout():
     logout_user()
-    flash('You have been logged out.', 'info')
+    flash('You have successfully logged out.', 'success')
     return redirect(url_for('base'))
 
 

@@ -3,3 +3,5 @@ __pycache__/
 instance/
 static/uploads/*
 venv/
+ngrok.exe
+.env

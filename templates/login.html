@@ -1,23 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Login</h1>
-<form action="{{ url_for('login') }}" method="post" novalidate>
-    {{ form.csrf_token }}
-    <div>
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="{{ form.email.data }}" required>
-        {% for error in form.email.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
+   <div class="card">
+        <div class="card-image">
+        </div>
+        <form action="{{ url_for('login') }}" class="card-form" method="post" novalidate>
+            {{ form.csrf_token }}
+            <div class="input">
+                {% for error in form.email.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+                <input type="email" class="input-field" name="email" id="email" required>
+                <label for="email" class="input-label">Email</label>
+            </div>
+            <div class="input">
+                {% for error in form.password.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+                <input type="password" class="input-field" name="password" id="password" required>
+                <label for="password" class="input-label">Password</label>
+            </div>
+            <div class="action">
+                <button type="submit" class="action-button">Войти</button>
+            </div>
+        </form>
     </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-        {% for error in form.password.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-    </div>
-    <button type="submit">Login</button>
-</form>
 {% endblock %}

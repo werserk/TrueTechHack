@@ -1,37 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Register</h1>
-<form action="{{ url_for('register') }}" method="post" novalidate>
-    {{ form.csrf_token }}
-    <div>
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="{{ form.username.data }}" required>
-        {% for error in form.username.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
+    <div class="card">
+        <div class="card-image">
+        </div>
+        <form action="{{ url_for('register') }}" class="card-form" method="post" novalidate>
+            {{ form.csrf_token }}
+            <div class="input">
+                {% for error in form.username.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+                <input type="text" class="input-field" name="username" id="username" required>
+                <label for="username" class="input-label">Username</label>
+            </div>
+            <div class="input">
+                {% for error in form.email.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+                <input type="email" class="input-field" name="email" id="email" required>
+                <label for="email" class="input-label">Email</label>
+            </div>
+            <div class="input">
+                {% for error in form.password.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+                <input type="password" class="input-field" name="password" id="password" required>
+                <label for="password" class="input-label">Password</label>
+            </div>
+            <div class="input">
+                {% for error in form.password_confirm.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+                <input type="password" class="input-field" name="password_confirm" id="password_confirm" required>
+                <label for="password_confirm" class="input-label">Confirm Password</label>
+            </div>
+            <div class="action">
+                <button type="submit" class="action-button">Регистрация</button>
+            </div>
+        </form>
     </div>
-    <div>
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="{{ form.email.data }}" required>
-        {% for error in form.email.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-        {% for error in form.password.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-    </div>
-    <div>
-        <label for="password_confirm">Confirm Password</label>
-        <input type="password" name="password_confirm" id="password_confirm" required>
-        {% for error in form.password_confirm.errors %}
-        <p class="error">{{ error }}</p>
-        {% endfor %}
-    </div>
-    <button type="submit">Register</button>
-</form>
 {% endblock %}

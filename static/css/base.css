@@ -1,31 +1,26 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+ul {
+    padding-left: 0rem;
 }
 
 header {
-    background-color: #333;
+    background-color: #ffffff;
     padding: 1rem;
 }
 
 nav a {
-    color: white;
+    color: #000000;
     text-decoration: none;
     padding: 0.5rem 1rem;
 }
 
 nav a:hover {
-    background-color: #555;
+    background-color: #cb2828;
 }
 
-main {
-    padding: 2rem;
+nav a.right {
+    alignment: right;
 }
 
 .flash-messages {
@@ -49,27 +44,9 @@ main {
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
+    font-family: "DM Sans", sans-serif;
     line-height: 1.5;
-    color: #333;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-weight: bold;
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-}
-
-/* Links */
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #0056b3;
-    text-decoration: underline;
+    background-color: #000000;
 }
 
 /* Buttons */
@@ -108,4 +85,79 @@ a:hover {
 .btn-secondary:hover {
     background-color: #5a6268;
     border-color: #5a6268;
+}
+
+h1 {
+    padding: 10%;
+    text-align: center;
+
+}
+
+div.buttons {
+    height: 23%;
+}
+
+div.banner {
+    background-color: #fed038;
+}
+
+a.main {
+    margin: auto;
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 0.5em 2em;
+    border-radius: 4px;
+}
+
+div.description {
+    padding-right: 10%;
+    padding-left: 10%;
+    margin-top: 5%;
+}
+
+a.registration {
+    text-decoration: none;
+    float: right;
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin: 1em;
+    padding: 0.5em 2em;
+    border-radius: 4px;
+}
+
+div.login {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    position: relative;
+    top: -3em;
+}
+
+a.login {
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin: auto;
+    padding: 0.5em 2em;
+    font-size: 3em;
+    border-radius: 3em;
+}
+
+a.traceback {
+    text-decoration: none;
+    float: left;
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin: 1em;
+    padding: 0.5em 2em;
+    border-radius: 4px;
+}
+
+a:hover {
+    color: white;
 }

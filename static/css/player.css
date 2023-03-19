@@ -1,0 +1,66 @@
+.slider-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+/* Slider container */
+.slider-container {
+    flex: 0 0 calc(50% - 10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    padding: 10px;
+    margin: 5px;
+}
+
+/* Slider */
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 5px;
+    background: white;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    margin-bottom: 10px;
+}
+
+/* Slider thumb */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: linear-gradient(90deg, red 50%, white 50%, white 52%, red 52%); /* Add thin white line */
+    background-size: 200% 100%; /* Adjust background size to make line visible */
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: linear-gradient(90deg, red 50%, white 50%, white 52%, red 52%); /* Add thin white line */
+    background-size: 200% 100%; /* Adjust background size to make line visible */
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+/* Hover effect */
+.slider:hover {
+    opacity: 1;
+}
+
+/* Labels */
+.slider-label {
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 5px;
+}
