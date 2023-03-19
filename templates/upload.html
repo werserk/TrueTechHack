@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Upload Video</h1>
+<form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" novalidate>
+    {{ form.csrf_token }}
+    <div>
+        <label for="video">Select Video</label>
+        <input type="file" name="video" id="video" accept="video/mp4,video/webm,video/ogg" required>
+        {% for error in form.video.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <button type="submit">Upload</button>
+</form>
+{% endblock %}

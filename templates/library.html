@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/library.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Video Library</h2>
+        <div class="video-grid">
+            {% for video in videos %}
+                <div class="video-grid-item">
+                    <a href="{{ url_for('player', video_id=video.id) }}">
+                        <video src="{{ url_for('static', filename='uploads/' + video.filename) }}" preload="auto" width="20%"></video>
+                        <div class="title">{{ video.title }}</div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/library.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Register</h1>
+<form action="{{ url_for('register') }}" method="post" novalidate>
+    {{ form.csrf_token }}
+    <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" value="{{ form.username.data }}" required>
+        {% for error in form.username.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" value="{{ form.email.data }}" required>
+        {% for error in form.email.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+        {% for error in form.password.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <div>
+        <label for="password_confirm">Confirm Password</label>
+        <input type="password" name="password_confirm" id="password_confirm" required>
+        {% for error in form.password_confirm.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    <button type="submit">Register</button>
+</form>
+{% endblock %}
