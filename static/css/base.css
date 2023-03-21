@@ -97,9 +97,17 @@ body {
 }
 
 h1 {
-    padding: 10%;
+    padding: 5%;
     text-align: center;
+    color: white;
+}
 
+div.title {
+    width: 60rem;
+    color: white;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 div.buttons {

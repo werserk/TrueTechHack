@@ -27,8 +27,8 @@ def load_user(user_id):
 
 
 @app.route("/")
-def base():
-    return render_template("base.html")
+def home():
+    return render_template("home.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -110,7 +110,7 @@ def delete_video(video_id):
 def logout():
     logout_user()
     flash('You have successfully logged out.', 'success')
-    return redirect(url_for('base'))
+    return redirect(url_for('home'))
 
 
 if __name__ == "__main__":

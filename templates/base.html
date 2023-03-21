@@ -20,7 +20,7 @@
 <body>
 <header>
     <nav>
-        <a class="left" href="{{ url_for('base') }}">Home</a>
+        <a class="left" href="{{ url_for('home') }}">Home</a>
         {% if current_user.is_authenticated %}
             <a class="left" href="{{ url_for('library') }}">My Videos</a>
             <a class="left" href="{{ url_for('upload') }}">Upload</a>
