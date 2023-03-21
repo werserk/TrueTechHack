@@ -3,15 +3,15 @@
 {% block content %}
     <div class="container">
         <h2>Upload new video</h2>
-        <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
+        <form id="upload-form" method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
             <div id="dropzone" class="dropzone">
-                <p>Drop files here or click to upload</p>
+                <p style="color: lightgrey;">Drop files here or click to upload</p>
                 <input type="file" id="file-input" name="video" style="display: none;">
-                <span id="filename" style="display: none;"></span>
-                <progress id="progress-bar" value="0" max="100" style="display: none;"></progress>
+                <span id="filename" style="display: none; color: lightgrey;"></span>
+                <progress id="progress-bar" value="0" max="100"></progress>
             </div>
             <div class="action">
-                <button type="submit" class="action-button">Upload</button>
+                <button type="submit" class="action-button" name="submit_button" value="Upload">Upload</button>
             </div>
         </form>
     </div>

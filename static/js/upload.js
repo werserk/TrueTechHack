@@ -17,7 +17,6 @@ dropzone.addEventListener("drop", (event) => {
     event.preventDefault();
     const files = event.dataTransfer.files;
     dropzone.classList.remove("active");
-
     handleFiles(files);
 });
 
@@ -34,7 +33,7 @@ fileInput.addEventListener("change", () => {
 });
 
 function validateFiles(files) {
-    const allowedExtensions = ["mp4", "avi", "wmv", "mov"];
+    const allowedExtensions = ["mp4", "avi", "wmv", "mov", "mkv"];
     const fileExtension = files[0].name.split(".").pop().toLowerCase();
     return allowedExtensions.includes(fileExtension);
 }
@@ -47,6 +46,10 @@ function handleFiles(files) {
         // Display filename
         filename.textContent = file.name;
         filename.style.display = "inline-block";
+
+        // Show progress bar and set value to 0
+        progressBar.style.display = "block";
+        progressBar.value = 0;
 
         // Show progress bar
         progressBar.style.display = "block";

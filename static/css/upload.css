@@ -26,3 +26,25 @@ h2 {
     color: #ffffff;
     text-align: center;
 }
+
+progress {
+    width: 35%;
+    border-radius: 5px;
+    background-color: white;
+    height: 10px;
+    position: relative; /* Add position relative to create a new stacking context */
+    overflow: hidden;
+    display: none;
+}
+
+progress::-webkit-progress-value {
+    background-color: #cb2828;
+    border-radius: 5px; /* Same border radius as the progress bar */
+    transition: width 0.1s;
+}
+
+progress::-moz-progress-bar {
+    background-color: #cb2828;
+    border-radius: 5px; /* Same border radius as the progress bar */
+    transition: width 0.1s;
+}

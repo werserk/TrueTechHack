@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container mt-4">
-        <h1 class="mb-4">{{ video.filename }}</h1>
+        <h1 class="mb-4">{{ video.name }}</h1>
         <div class="video-container">
             <video id="videoPlayer" width="50%" controls>
                 <source src="{{ url_for('static', filename='uploads/' + video.filename) }}" type="video/mp4">
@@ -24,17 +24,14 @@
                     <input class="slider" type="range" id="saturation" name="saturation" min="0" max="200" value="100">
                 </div>
                 <div class="slider-container">
-                    <label class="slider-label" class="slider-label" for="hue-rotate">Hue-rotate:</label>
+                    <label class="slider-label" for="hue-rotate">Hue-rotate:</label>
                     <input class="slider" type="range" id="hue-rotate" name="hue-rotate" min="0" max="360" value="0">
                 </div>
             </div>
+            <form action="{{ url_for('delete_video', video_id=video.id) }}" method="POST">
+                <button type="submit" class="action-button small">Delete</button>
+            </form>
         </div>
-        {#        <div class="mt-4">#}
-        {#            <label for="epilepsy">Epilepsy Filter:</label>#}
-        {#            <input type="checkbox" id="epilepsy" name="epilepsy">#}
-        {#            <label for="color-blind">Color Blind Mode:</label>#}
-        {#            <input type="checkbox" id="color-blind" name="color-blind">#}
-        {#        </div>#}
     </div>
     <script src="{{ url_for('static', filename='js/video-player.js') }}"></script>
 {% endblock %}

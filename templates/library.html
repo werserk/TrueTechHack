@@ -7,7 +7,7 @@
             {% for video in videos %}
                 <div class="video-grid-item">
                     <a href="{{ url_for('player', video_id=video.id) }}">
-                        <video src="{{ url_for('static', filename='uploads/' + video.filename) }}" preload="auto" width="20%"></video>
+                        <video src="{{ url_for('static', filename='uploads/' + video.filename) }}" preload="auto"></video>
                         <div class="title">{{ video.title }}</div>
                     </a>
                 </div>

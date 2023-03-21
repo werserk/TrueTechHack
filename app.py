@@ -12,8 +12,9 @@ from utils.video_processing import process_video
 
 app = Flask(__name__)
 app.config.from_object(Config)
-
 db.init_app(app)
+with app.app_context():
+    db.create_all()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -61,12 +62,13 @@ def login():
 @login_required
 def upload():
     form = UploadForm(request.form)
-    if request.method == 'POST':
+    if request.method == 'POST' and request.form.get('submit_button') == 'Upload':
         video = request.files['video']
         processed_video_path = process_video(video)
         video.save(processed_video_path)
-
-        video_entry = Video(filename=os.path.basename(processed_video_path), user_id=current_user.id)
+        video_entry = Video(name=video.filename,
+                            filename=os.path.basename(processed_video_path),
+                            user_id=current_user.id)
         db.session.add(video_entry)
         db.session.commit()
 
@@ -112,6 +114,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
