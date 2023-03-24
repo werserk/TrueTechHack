@@ -62,7 +62,8 @@ function handleFiles(files) {
             progressBar.value = percentComplete;
         });
         xhr.addEventListener("load", (event) => {
-            // handle success or failure
+            // hide progress bar
+            progressBar.style.display = "none";
         });
         xhr.send(new FormData(form));
 

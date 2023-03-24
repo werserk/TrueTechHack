@@ -1,5 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
+/* Base font size for all screens */
+
+body {
+    background-color: #000000;
+    font-family: "DM Sans", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Media query for screens less than 600px wide */
+@media screen and (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+/* Media query for screens between 600px and 900px wide */
+@media screen and (min-width: 600px) and (max-width: 900px) {
+    body {
+        font-size: 16px;
+    }
+}
+
+/* Media query for screens wider than 900px */
+@media screen and (min-width: 900px) {
+    body {
+        font-size: 18px;
+    }
+}
+
+
 ul {
     padding-left: 0rem;
 }
@@ -16,9 +47,9 @@ nav {
 
 nav a {
     color: #000000;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
     margin: 0.25rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
 }
 
 nav a:hover {
@@ -39,8 +70,8 @@ nav a.right {
 }
 
 .flash-messages li {
-    padding: 0.5rem 1rem;
     margin-bottom: 0.5rem;
+    padding: 0.5rem 1rem;
 }
 
 .flash-messages li.success {
@@ -53,32 +84,27 @@ nav a.right {
     color: white;
 }
 
-body {
-    font-family: "DM Sans", sans-serif;
-    line-height: 1.5;
-    background-color: #000000;
-}
 
 /* Buttons */
 .btn {
-    display: inline-block;
-    padding: 0.5em 1em;
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: center;
-    text-decoration: none;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
     border: 1px solid transparent;
     border-radius: 0.25rem;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.5em 1em;
+    text-align: center;
+    text-decoration: none;
     transition: all 0.15s ease-in-out;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 
 .btn-primary {
     background-color: #007bff;
-    color: #fff;
     border-color: #007bff;
+    color: #fff;
 }
 
 .btn-primary:hover {
@@ -88,8 +114,8 @@ body {
 
 .btn-secondary {
     background-color: #6c757d;
-    color: #fff;
     border-color: #6c757d;
+    color: #fff;
 }
 
 .btn-secondary:hover {
@@ -98,18 +124,18 @@ body {
 }
 
 h1 {
+    color: white;
     padding: 5%;
     text-align: center;
-    color: white;
 }
 
 div.title {
-    width: 80%;
-    max-width: 60rem;
     color: white;
-    position: absolute;
     left: 50%;
+    max-width: 60rem;
+    position: absolute;
     transform: translateX(-50%);
+    width: 80%;
 }
 
 div.buttons {
@@ -121,60 +147,60 @@ div.banner {
 }
 
 a.main {
-    margin: auto;
-    text-decoration: none;
     background-color: black;
-    color: white;
-    text-align: center;
-    padding: 0.5em 2em;
     border-radius: 4px;
+    color: white;
+    margin: auto;
+    padding: 0.5em 2em;
+    text-align: center;
+    text-decoration: none;
 }
 
 div.description {
-    padding-right: 10%;
-    padding-left: 10%;
     margin-top: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 a.registration {
-    text-decoration: none;
-    float: right;
     background-color: black;
+    border-radius: 4px;
     color: white;
-    text-align: center;
+    float: right;
     margin: 1em;
     padding: 0.5em 2em;
-    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
 }
 
 div.login {
-    text-align: center;
     margin: auto;
-    width: 50%;
     position: relative;
+    text-align: center;
     top: -3em;
+    width: 50%;
 }
 
 a.login {
-    text-decoration: none;
     background-color: black;
+    border-radius: 3em;
     color: white;
-    text-align: center;
+    font-size: 3em;
     margin: auto;
     padding: 0.5em 2em;
-    font-size: 3em;
-    border-radius: 3em;
+    text-align: center;
+    text-decoration: none;
 }
 
 a.traceback {
-    text-decoration: none;
-    float: left;
     background-color: black;
+    border-radius: 4px;
     color: white;
-    text-align: center;
+    float: left;
     margin: 1em;
     padding: 0.5em 2em;
-    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
 }
 
 a:hover {

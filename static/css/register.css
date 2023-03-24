@@ -1,6 +1,6 @@
 img {
-    max-width: 100%;
     display: block;
+    max-width: 100%;
 }
 
 input {
@@ -10,24 +10,24 @@ input {
 }
 
 .card {
-    margin: 2rem auto;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 425px;
     background-color: #ffffff;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 2rem auto;
+    max-width: 425px;
     padding: 0.75rem;
+    width: 100%;
 }
 
 .card-image {
+    background-image: url('../images/logotype.png');
+    background-position: 0 5%;
+    background-repeat: no-repeat;
+    background-size: 100%;
     border-radius: 8px;
     overflow: hidden;
     padding-bottom: 100%;
-    background-image: url('../images/logotype.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: 0 5%;
     position: relative;
 }
 
@@ -43,20 +43,20 @@ input {
 }
 
 a.main {
-    margin: auto;
-    text-decoration: none;
     background-color: #ffffff;
-    color: #000000;
-    text-align: center;
-    padding: 0.5em 2em;
     border-radius: 4px;
+    color: #000000;
+    margin: auto;
+    padding: 0.5em 2em;
+    text-align: center;
+    text-decoration: none;
 }
 
 .input {
     display: flex;
     flex-direction: column-reverse;
-    position: relative;
     padding-top: 1.5rem;
+    position: relative;
 }
 
 .input + .input {
@@ -71,18 +71,18 @@ a.main {
 }
 
 .input-field {
-    border: 0;
-    z-index: 1;
     background-color: transparent;
+    border: 0;
     border-bottom: 2px solid #eee;
     font: inherit;
     font-size: 1.125rem;
     padding: 0.25rem 0;
+    z-index: 1;
 }
 
 .input-field:focus, .input-field:valid {
-    outline: 0;
     border-bottom-color: #cb2828;
+    outline: 0;
 }
 
 .input-field:focus + .input-label, .input-field:valid + .input-label {
@@ -95,15 +95,15 @@ a.main {
 }
 
 .action-button {
-    font: inherit;
-    font-size: 1.25rem;
-    padding: 1em;
-    width: 100%;
-    font-weight: 500;
     background-color: #cb2828;
+    border: 0;
     border-radius: 6px;
     color: #FFF;
-    border: 0;
+    font: inherit;
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 1em;
+    width: 100%;
 }
 
 .action-button:focus {
@@ -111,15 +111,15 @@ a.main {
 }
 
 .card-info {
+    color: #f6a2a2;
+    font-size: 0.875rem;
     padding: 1rem 1rem;
     text-align: center;
-    font-size: 0.875rem;
-    color: #f6a2a2;
 }
 
 .card-info a {
-    display: block;
     color: #cb2828;
+    display: block;
     text-decoration: none;
 }
 

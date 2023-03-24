@@ -78,6 +78,15 @@ def upload():
     return render_template('upload.html', form=form)
 
 
+@app.route('/edit_video_name/<int:video_id>', methods=['POST'])
+def edit_video_name(video_id):
+    new_video_name = request.form.get('new_video_name')
+    video = Video.query.get_or_404(video_id)
+    video.name = new_video_name
+    db.session.commit()
+    return redirect(url_for('player', video_id=video.id))
+
+
 @app.route('/library', methods=['GET'])
 @login_required
 def library():

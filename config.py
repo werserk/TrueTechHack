@@ -7,5 +7,5 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = 'static/uploads/'
     MAX_VIDEO_LENGTH_SECONDS = 5 * 60
-    ALLOWED_VIDEO_EXTENSIONS = {'mp4', 'webm', 'ogg'}
+    ALLOWED_VIDEO_EXTENSIONS = ["mp4", "avi", "wmv", "mov", "mkv"]
     # Add other configuration settings as needed, e.g., storage provider API keys

@@ -31,6 +31,14 @@ function toggleColorBlindMode() {
     }
 }
 
+var videos = document.getElementsByTagName("video");
+for (var i = 0; i < videos.length; i++) {
+    videos[i].addEventListener("canplaythrough", function () {
+        // Video has been preloaded, can now be played
+    });
+    videos[i].load();
+}
+
 // Set up event listeners for the input elements
 brightness.addEventListener('input', updateFilter);
 contrast.addEventListener('input', updateFilter);
