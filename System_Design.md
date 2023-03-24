@@ -37,3 +37,5 @@
 ## > Затраты
 Отсуствуют данные, но можно ориентироваться на цены MTS Cloud или Yandex Cloud
 
+## > Высокоуровневый дизайн
+![image](https://user-images.githubusercontent.com/52196169/227626523-1f5b11e3-d8e6-41e6-9751-9cc947af6822.png)
