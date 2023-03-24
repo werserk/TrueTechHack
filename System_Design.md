@@ -38,4 +38,4 @@
 Данные о затратах не известны, однако можно ориентироваться на цены MTS Cloud или Yandex Cloud.
 
 ## > Высокоуровневый дизайн
-![image](https://user-images.githubusercontent.com/52196169/227626523-1f5b11e3-d8e6-41e6-9751-9cc947af6822.png)
+![image](https://user-images.githubusercontent.com/52196169/227630923-4b03a77e-9e8a-4020-a57b-3d85aa45df3a.png)
