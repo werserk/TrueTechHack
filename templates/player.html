@@ -26,7 +26,7 @@
 
         <!-- Video -->
         <div class="video-card">
-            <video id="videoPlayer" width="50%" controls preload="none">
+            <video id="videoPlayer" width="50%" controls playsinline preload="metadata">
                 <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/mp4">
                 <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/x-msvideo">
                 <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/x-ms-wmv">
