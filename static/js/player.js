@@ -1,4 +1,4 @@
-const videoPlayer = document.getElementById('videoPlayer');
+const player = document.getElementById('videoPlayer');
 const brightness = document.getElementById('brightness');
 const contrast = document.getElementById('contrast');
 const saturation = document.getElementById('saturation');
@@ -12,14 +12,14 @@ function updateFilter() {
     const saturationValue = saturation.value;
     const hueRotateValue = hueRotate.value;
 
-    videoPlayer.style.filter = `brightness(${brightnessValue}%) contrast(${contrastValue}%) saturate(${saturationValue}%) hue-rotate(${hueRotateValue}deg)`;
+    player.style.filter = `brightness(${brightnessValue}%) contrast(${contrastValue}%) saturate(${saturationValue}%) hue-rotate(${hueRotateValue}deg)`;
 }
 
 function toggleEpilepsyFilter() {
     if (epilepsy.checked) {
-        videoPlayer.style.animation = 'none';
+        player.style.animation = 'none';
     } else {
-        videoPlayer.style.animation = '';
+        player.style.animation = '';
     }
 }
 
@@ -31,13 +31,7 @@ function toggleColorBlindMode() {
     }
 }
 
-var videos = document.getElementsByTagName("video");
-for (var i = 0; i < videos.length; i++) {
-    videos[i].addEventListener("canplaythrough", function () {
-        // Video has been preloaded, can now be played
-    });
-    videos[i].load();
-}
+window.player = new Plyr('video', {});
 
 // Set up event listeners for the input elements
 brightness.addEventListener('input', updateFilter);

@@ -1,7 +1,8 @@
 .idea/
 __pycache__/
 instance/
-static/uploads/*
 venv/
 ngrok.exe
 .env
+static/user_data/video/*
+static/user_data/preview/*

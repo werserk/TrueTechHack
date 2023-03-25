@@ -21,5 +21,6 @@ class User(db.Model, UserMixin):
 class Video(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    filename = db.Column(db.String(255), nullable=False)
+    video_filename = db.Column(db.String(255), nullable=False)
+    preview_filename = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)

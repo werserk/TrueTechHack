@@ -1,13 +1,17 @@
-{% extends "base.html" %}
+{% extends "header.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css">
+    <link rel="stylesheet" href="/static/css/card.css">
+    <link rel="stylesheet" href="/static/css/player.css">
+{% endblock %}
 
 {% block content %}
     <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="video-name">{{ video.name }}</h1>
-            <button id="editButton" class="action-button small">Edit</button>
-        </div>
+        <!-- Name -->
+        <h1 class="video-name">{{ video.name }}</h1>
 
-        <!-- Modal -->
+        <!-- Dialogue window -->
         <div id="editModal" class="modal">
             <div class="modal-content">
                 <button class="close-button">&times;</button>
@@ -20,17 +24,20 @@
             </div>
         </div>
 
+        <!-- Video -->
         <div class="video-card">
             <video id="videoPlayer" width="50%" controls preload="none">
-                <source src="{{ url_for('static', filename='uploads/' + video.filename) }}" type="video/mp4">
-                <source src="{{ url_for('static', filename='uploads/' + video.filename) }}" type="video/x-msvideo">
-                <source src="{{ url_for('static', filename='uploads/' + video.filename) }}" type="video/x-ms-wmv">
-                <source src="{{ url_for('static', filename='uploads/' + video.filename) }}" type="video/quicktime">
-                <source src="{{ url_for('static', filename='uploads/' + video.filename) }}" type="video/x-matroska">
+                <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/mp4">
+                <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/x-msvideo">
+                <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/x-ms-wmv">
+                <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/quicktime">
+                <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/x-matroska">
                 Your browser does not support the video tag.
             </video>
         </div>
+
         <div class="mt-4">
+            <!-- Sliders -->
             <div class="slider-grid">
                 <div class="slider-container">
                     <label class="slider-label" for="brightness">Brightness:</label>
@@ -49,11 +56,18 @@
                     <input class="slider" type="range" id="hue-rotate" name="hue-rotate" min="0" max="360" value="0">
                 </div>
             </div>
-            <form action="{{ url_for('delete_video', video_id=video.id) }}" method="POST">
-                <button type="submit" class="action-button small">Delete</button>
-            </form>
+            <!-- Buttons -->
+            <div class="buttons-grid">
+                <form action="{{ url_for('delete_video', video_id=video.id) }}" method="POST">
+                    <button type="submit" class="action-button small">Delete</button>
+                </form>
+                <div>
+                    <button id="editButton" class="action-button small">Edit</button>
+                </div>
+            </div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='js/edit-video-name.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/video-player.js') }}"></script>
+    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+    <script src="/static/js/dialogue-window.js"></script>
+    <script src="/static/js/player.js"></script>
 {% endblock %}

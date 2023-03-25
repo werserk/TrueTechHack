@@ -1,4 +1,11 @@
-{% extends "base.html" %}
+{% extends "header.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css"
+          integrity="sha384-KtuplUXgNMAf2GoyNzMW3kbEaMVG6f5tA2z8YL+zlU5g5U6a5K6xm5H6v5zX9KZg" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="/static/css/upload.css">
+    <link rel="stylesheet" href="/static/css/card.css">
+{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -13,7 +20,11 @@
             <div class="action">
                 <button type="submit" class="action-button" name="submit_button" value="Upload">Upload</button>
             </div>
+            <div id="overlay" class="overlay" style="display:none;">
+                <div id="spinner" class="spinner"></div>
+            </div>
         </form>
     </div>
-    <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+    <script src="/static/js/upload.js"></script>
+    <script src="/static/js/spinner.js"></script>
 {% endblock %}

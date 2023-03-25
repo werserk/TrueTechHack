@@ -8,7 +8,7 @@ from config import Config
 from extensions import db
 from forms import LoginForm, RegistrationForm, UploadForm
 from models import User, Video
-from utils.video_processing import process_video
+from video_processing import process_video
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -64,10 +64,10 @@ def upload():
     form = UploadForm(request.form)
     if request.method == 'POST' and request.form.get('submit_button') == 'Upload':
         video = request.files['video']
-        processed_video_path = process_video(video)
-        video.save(processed_video_path)
+        processed_video_path, preview_path = process_video(video)  # Modify this line
         video_entry = Video(name=video.filename,
-                            filename=os.path.basename(processed_video_path),
+                            video_filename=os.path.basename(processed_video_path),
+                            preview_filename=os.path.basename(preview_path),  # Add this line
                             user_id=current_user.id)
         db.session.add(video_entry)
         db.session.commit()
@@ -84,6 +84,7 @@ def edit_video_name(video_id):
     video = Video.query.get_or_404(video_id)
     video.name = new_video_name
     db.session.commit()
+    flash("Name changed successfully!", "success")
     return redirect(url_for('player', video_id=video.id))
 
 
@@ -109,7 +110,8 @@ def delete_video(video_id):
         abort(403)
     db.session.delete(video)
     db.session.commit()
-    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], video.filename))
+    os.remove(os.path.join(Config.VIDEO_UPLOAD_FOLDER, video.video_filename))
+    os.remove(os.path.join(Config.PREVIEW_UPLOAD_FOLDER, video.preview_filename))
     flash('Your video has been deleted.', 'success')
     return redirect(url_for('library'))
 

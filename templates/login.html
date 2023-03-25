@@ -1,7 +1,11 @@
-{% extends "base.html" %}
+{% extends "header.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="/static/css/card.css">
+{% endblock %}
 
 {% block content %}
-   <div class="card">
+    <div class="card">
         <div class="card-image">
         </div>
         <form action="{{ url_for('login') }}" class="card-form" method="post" novalidate>

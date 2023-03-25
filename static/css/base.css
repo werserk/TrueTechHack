@@ -30,62 +30,12 @@ body {
     }
 }
 
-
-ul {
-    padding-left: 0rem;
-}
-
-header {
-    background-color: #ffffff;
-    padding: 0.5rem;
-    width: 100%;
-}
-
-nav {
-    overflow: hidden;
-}
-
-nav a {
-    color: #000000;
-    margin: 0.25rem;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-}
-
-nav a:hover {
-    background-color: #cb2828;
-}
-
-nav a.left {
-    float: left;
-}
-
-nav a.right {
-    float: right;
-}
-
-.flash-messages {
-    list-style: none;
-    margin-bottom: 1rem;
-}
-
-.flash-messages li {
-    margin-bottom: 0.5rem;
-    padding: 0.5rem 1rem;
-}
-
-.flash-messages li.success {
-    background-color: #4caf50;
-    color: white;
-}
-
-.flash-messages li.danger {
-    background-color: #f44336;
-    color: white;
+:root {
+    --plyr-color-main: #cb2828;
+    --plyr-range-thumb-background: linear-gradient(to right, #cb2828 50%, white 50%, white 50%, #cb2828 50%);
 }
 
 
-/* Buttons */
 .btn {
     border: 1px solid transparent;
     border-radius: 0.25rem;
@@ -101,31 +51,15 @@ nav a.right {
     white-space: nowrap;
 }
 
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-    color: #fff;
-}
-
-.btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #5a6268;
-}
-
 h1 {
     color: white;
     padding: 5%;
+    text-align: center;
+}
+
+h2 {
+    color: #ffffff;
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -138,13 +72,12 @@ div.title {
     width: 80%;
 }
 
-div.buttons {
-    height: 23%;
+.container {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
 }
 
-div.banner {
-    background-color: #fed038;
-}
 
 a.main {
     background-color: black;

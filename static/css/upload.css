@@ -1,25 +1,14 @@
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #ffffff;
-}
 
 .dropzone {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
     border: 2px dashed #ffffff;
     border-radius: 5px;
-    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     min-height: 200px;
     padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
 }
 
 .dropzone .dz-message {
@@ -28,13 +17,13 @@ h2 {
 }
 
 progress {
-    width: 35%;
-    border-radius: 5px;
     background-color: white;
-    height: 10px;
-    position: relative; /* Add position relative to create a new stacking context */
-    overflow: hidden;
+    border-radius: 5px;
     display: none;
+    height: 10px;
+    overflow: hidden;
+    position: relative; /* Add position relative to create a new stacking context */
+    width: 35%;
 }
 
 progress::-webkit-progress-value {

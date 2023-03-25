@@ -1,4 +1,9 @@
-{% extends "base.html" %}
+{% extends "header.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css">
+    <link rel="stylesheet" href="/static/css/library.css">
+{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -7,12 +12,12 @@
             {% for video in videos %}
                 <div class="video-grid-item">
                     <a href="{{ url_for('player', video_id=video.id) }}">
-                        <video src="{{ url_for('static', filename='uploads/' + video.filename) }}" preload="none"></video>
+                        <img src="{{ url_for('static', filename='user_data/preview/' + video.preview_filename ) }}">
                         <div class="video-title">{{ video.name }}</div>
                     </a>
                 </div>
             {% endfor %}
         </div>
     </div>
-    <script src="{{ url_for('static', filename='js/library.js') }}"></script>
+    <script src="/static/js/library.js"></script>
 {% endblock %}

@@ -6,11 +6,12 @@ img {
 input {
     appearance: none;
     border-radius: 0;
-    color: #ffffff;
+    color: white;
 }
 
 .card {
-    background-color: #ffffff;
+    background-color: black;
+    border-color: #cb2828;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -21,7 +22,7 @@ input {
 }
 
 .card-image {
-    background-image: url('../images/logotype.png');
+    background-image: url('../logo/logo.png');
     background-position: 0 5%;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -43,7 +44,7 @@ input {
 }
 
 a.main {
-    background-color: #ffffff;
+    background-color: white;
     border-radius: 4px;
     color: #000000;
     margin: auto;
