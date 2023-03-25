@@ -14,23 +14,37 @@ nav {
     overflow: hidden;
 }
 
-nav a {
+nav span {
     color: #000000;
+    margin: 0.25rem;
+    padding: 0.5rem;
+    text-decoration: none;
+}
+
+nav span:hover {
+    background-color: #cb2828;
+    color: white;
+}
+
+nav a:hover {
+    background-color: #cb2828;
+    color: white;
+}
+
+nav .left {
+    color: #000000;
+    float: left;
     margin: 0.25rem;
     padding: 0.5rem 1rem;
     text-decoration: none;
 }
 
-nav a:hover {
-    background-color: #cb2828;
-}
-
-nav a.left {
-    float: left;
-}
-
-nav a.right {
+nav .right {
+    color: #000000;
     float: right;
+    margin: 0.25rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
 }
 
 .flash-messages {

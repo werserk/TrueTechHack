@@ -9,6 +9,7 @@
           crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/base.css">
     <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,-25"/>
     {% block style %}
     {% endblock %}
     <link rel="shortcut icon" href="../static/logo/logo_mini.png">
@@ -17,14 +18,19 @@
 <body>
 <header>
     <nav>
-        <a class="left" href="{{ url_for('home') }}">Home</a>
         {% if current_user.is_authenticated %}
             <a class="left" href="{{ url_for('library') }}">My Videos</a>
             <a class="left" href="{{ url_for('upload') }}">Upload</a>
-            <a class="right" href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('logout') }}">
+                <span class="material-symbols-outlined right">logout</span>
+            </a>
+            {#            <span class="material-symbols-outlined right">settings</span>#}
         {% else %}
+            <a class="left" href="{{ url_for('home') }}">About us</a>
+            <a href="{{ url_for('login') }}">
+                <span class="material-symbols-outlined right">login</span>
+            </a>
             <a class="right" href="{{ url_for('register') }}">Register</a>
-            <a class="right" href="{{ url_for('login') }}">Login</a>
         {% endif %}
     </nav>
 </header>
