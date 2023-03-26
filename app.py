@@ -64,6 +64,9 @@ def upload():
     form = UploadForm(request.form)
     if request.method == 'POST' and request.form.get('submit_button') == 'Upload':
         video = request.files['video']
+        if video.filename == '':
+            return render_template('upload.html', form=form)
+
         processed_video_path, preview_path = process_video(video)  # Modify this line
         video_entry = Video(name=video.filename,
                             video_filename=os.path.basename(processed_video_path),
