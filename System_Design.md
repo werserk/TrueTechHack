@@ -136,7 +136,7 @@ def detect_image_issues(image):
         "softened_image": softened_image
     }
     
-  def display_image(image, is_epilepsy=False):
+ def display_image(image, is_epilepsy=False):
     if is_epilepsy:
         print("STOP! This image may trigger an epileptic seizure. Seek medical attention immediately.")
         return
