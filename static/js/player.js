@@ -5,6 +5,22 @@ const saturation = document.getElementById('saturation');
 const hueRotate = document.getElementById('hue-rotate');
 const epilepsy = document.getElementById('epilepsy');
 const colorBlind = document.getElementById('color-blind');
+const videoId = parseInt(player.dataset.videoId, 10);
+
+
+function updateVideoSettings(brightness, contrast) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `/update_video_settings/${videoId}`);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            console.log('Video settings updated successfully');
+        } else {
+            console.error('Failed to update video settings');
+        }
+    };
+    xhr.send(`brightness=${brightness}&contrast=${contrast}`);
+}
 
 function updateFilter() {
     const brightnessValue = brightness.value;
@@ -13,6 +29,7 @@ function updateFilter() {
     const hueRotateValue = hueRotate.value;
 
     player.style.filter = `brightness(${brightnessValue}%) contrast(${contrastValue}%) saturate(${saturationValue}%) hue-rotate(${hueRotateValue}deg)`;
+    updateVideoSettings(brightnessValue / 100, contrastValue / 100);
 }
 
 function toggleEpilepsyFilter() {

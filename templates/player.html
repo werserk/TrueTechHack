@@ -26,7 +26,9 @@
 
         <!-- Video -->
         <div class="video-card">
-            <video id="videoPlayer" width="50%" controls playsinline preload="metadata">
+            <video id="videoPlayer" data-video-id="{{ video.id }}"
+                   style="filter: brightness({{ video.video_settings.brightness }}) contrast({{ video.video_settings.contrast }});"
+                   width="50%" controls playsinline preload="metadata">
                 <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/mp4">
                 <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/x-msvideo">
                 <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/x-ms-wmv">
@@ -41,11 +43,13 @@
             <div class="slider-grid">
                 <div class="slider-container">
                     <label class="slider-label" for="brightness">Brightness:</label>
-                    <input class="slider" type="range" id="brightness" name="brightness" min="0" max="200" value="100">
+                    <input class="slider" type="range" id="brightness" name="brightness" min="0" max="200"
+                           value="{{ video_settings.brightness * 100 }}">
                 </div>
                 <div class="slider-container">
                     <label class="slider-label" for="contrast">Contrast:</label>
-                    <input class="slider" type="range" id="contrast" name="contrast" min="0" max="200" value="100">
+                    <input class="slider" type="range" id="contrast" name="contrast" min="0" max="200"
+                           value="{{ video_settings.contrast * 100 }}">
                 </div>
                 <div class="slider-container">
                     <label class="slider-label" for="saturation">Saturation:</label>

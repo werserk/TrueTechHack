@@ -1,13 +1,13 @@
 import os.path
 
-from flask import abort, flash, Flask, redirect, render_template, request, url_for
+from flask import abort, flash, Flask, redirect, render_template, request, url_for, jsonify
 from flask_login import current_user, login_required, login_user, LoginManager, logout_user
 from werkzeug.security import check_password_hash
 
 from config import Config
 from extensions import db
 from forms import LoginForm, RegistrationForm, UploadForm
-from models import User, Video
+from models import User, Video, VideoSettings, UserSettings
 from video_processing import process_video
 
 app = Flask(__name__)
@@ -39,6 +39,12 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
+
+        # Create a UserSettings entry for the new user with default brightness and contrast values
+        user_settings = UserSettings(brightness=1.0, contrast=1.0, user_id=user.id)
+        db.session.add(user_settings)
+        db.session.commit()
+
         flash("Account created successfully!", "success")
         return redirect(url_for("login"))
     return render_template("register.html", form=form)
@@ -67,12 +73,22 @@ def upload():
         if video.filename == '':
             return render_template('upload.html', form=form)
 
+        # Get the user's settings or use default values
+        user_settings = current_user.settings
+        brightness = user_settings.brightness
+        contrast = user_settings.contrast
+
         processed_video_path, preview_path = process_video(video)  # Modify this line
         video_entry = Video(name=video.filename,
                             video_filename=os.path.basename(processed_video_path),
-                            preview_filename=os.path.basename(preview_path),  # Add this line
+                            preview_filename=os.path.basename(preview_path),
                             user_id=current_user.id)
         db.session.add(video_entry)
+        db.session.commit()
+
+        # Create VideoSettings entry with custom brightness and contrast values (if any)
+        video_settings = VideoSettings(brightness=brightness, contrast=contrast, video_id=video_entry.id)
+        db.session.add(video_settings)
         db.session.commit()
 
         flash('Video uploaded and processed successfully!', 'success')
@@ -102,7 +118,9 @@ def library():
 @login_required
 def player(video_id):
     video = Video.query.get_or_404(video_id)
-    return render_template("player.html", video=video)
+    print(video.video_settings)
+    print(video.video_settings.contrast)
+    return render_template("player.html", video=video, video_settings=video.video_settings)
 
 
 @app.route('/delete_video/<int:video_id>', methods=['POST'])
@@ -125,6 +143,23 @@ def logout():
     logout_user()
     flash('You have successfully logged out.', 'success')
     return redirect(url_for('home'))
+
+
+@app.route('/update_video_settings/<int:video_id>', methods=['POST'])
+@login_required
+def update_video_settings(video_id):
+    brightness = request.form.get('brightness', type=float)
+    contrast = request.form.get('contrast', type=float)
+
+    video = Video.query.get_or_404(video_id)
+    if video.user_id != current_user.id:
+        abort(403)
+
+    video.video_settings.brightness = brightness
+    video.video_settings.contrast = contrast
+    db.session.commit()
+
+    return jsonify({"message": "Video settings updated successfully"})
 
 
 if __name__ == "__main__":
