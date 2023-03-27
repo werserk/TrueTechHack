@@ -1,9 +1,11 @@
 import os
-import uuid
-import imageio
-import ffmpeg
-from config import Config
 import subprocess
+import uuid
+
+import imageio
+import pandas as pd
+
+from config import Config
 
 
 def allowed_video(file):
@@ -12,6 +14,24 @@ def allowed_video(file):
 
 def secure_filename(name):
     return str(uuid.uuid4())
+
+
+def transform2df(array: list) -> pd.DataFrame:
+    # Convert the list to a pandas DataFrame
+    df = pd.DataFrame({'data': array})
+    return df
+
+
+def save2parquet(array: list, filename: str):
+    df = transform2df(array)
+    # Save the DataFrame as a Parquet file
+    df.to_parquet(filename)
+
+
+def save2feather(array: list, filename: str):
+    df = transform2df(array)
+    # Save the DataFrame as a Feather file
+    df.to_feather(filename)
 
 
 def convert_to_mp4(input_path, output_path):
@@ -36,11 +56,18 @@ def process_video(video):
     #
     #     path = output_path
 
-    preview_path = os.path.join(Config.PREVIEW_UPLOAD_FOLDER, secure_filename(filename) + '.jpg')
-    # Save a frame for preview
+    bit_line = prod_model(video_path=path,
+                          batch_size=256)
+    blur_timeline_path = os.path.join(Config.PREVIEW_UPLOAD_FOLDER, secure_filename(filename) + '.feather')
+    save2feather(bit_line,
+                 filename=blur_timeline_path)
 
+    # Save a frame for preview
+    preview_path = os.path.join(Config.PREVIEW_UPLOAD_FOLDER, secure_filename(filename) + '.jpg')
     reader = imageio.get_reader(path)
     preview_frame = reader.get_data(0)
     imageio.imwrite(preview_path, preview_frame)
 
-    return path, preview_path
+    return {"video_path": path,
+            "preview_path": preview_path,
+            "blur_timeline_path": blur_timeline_path}

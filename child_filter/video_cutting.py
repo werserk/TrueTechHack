@@ -22,15 +22,17 @@ def split_video(video_path, batch_size: int = 1):
         for j in range(batch_size):
             # Read the frame
             ret, frame = video.read()
-            image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-            # Convert the NumPy array to a PIL Image
-            image_pil = Image.fromarray(image_rgb)
 
             # Check if the frame was successfully read
             if ret:
+                # Convert to RGB
+                image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                # Convert the NumPy array to a PIL Image
+                image_pil = Image.fromarray(image_rgb)
                 # Add the frame to the batch
                 batch.append(image_pil)
+            else:
+                break
 
         # Yield the batch
         if batch_size == 1:

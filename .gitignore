@@ -6,3 +6,4 @@ ngrok.exe
 .env
 static/user_data/video/*
 static/user_data/preview/*
+child_filter/weights/*

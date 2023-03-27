@@ -1,18 +1,20 @@
+import time
+from typing import Optional
+
 import clip
 import numpy as np
 from clip_onnx import clip_onnx
-from typing import Optional
-from video_cutting import split_video
 
+from child_filter.video_cutting import split_video
 
-model, preprocess = clip.load("ViT-B/32", device="cpu", jit=False)
+model, preprocess = clip.load("ViT-B/32", device="cuda", jit=True)
 
-visual_path = "clip_visual.onnx"
-textual_path = "clip_textual.onnx"
+visual_path = "weights/clip_visual.onnx"
+textual_path = "weights/clip_textual.onnx"
 
-onnx_model = clip_onnx(None)
-onnx_model.load_onnx(visual_path="visual.onnx",
-                     textual_path="textual.onnx",
+onnx_model = clip_onnx(model)
+onnx_model.load_onnx(visual_path=visual_path,
+                     textual_path=textual_path,
                      logit_scale=100.0000)
 onnx_model.start_sessions(providers=["CUDAExecutionProvider"])
 
@@ -43,7 +45,7 @@ class Model:
         bit_line = []
         for batch in split_video(video_path, batch_size=batch_size):
             _bit_line = self._predict(batch, specific_promts)
-            bit_line += _bit_line
+            bit_line.extend(_bit_line)
         return bit_line
 
     def _predict(self, images: list, specific_promts: Optional[list] = None):
@@ -59,11 +61,26 @@ class Model:
         return probs.argmax(-1)
 
 
-clip_model = Model(onnx_model)
+prod_model = Model(onnx_model)
 
-if __name__ == '__main__':
-    bit_line = clip_model(
-        video_path='../static/user_data/video/5e739b4d-3f1d-45ed-a8ca-c224ff3c9b28.mp4',
-        batch_size=128
+
+def main():
+    t = time.time()
+    bit_line = prod_model(
+        video_path='../static/user_data/video/a55ad454-1daa-493a-9a50-f0f7295c8468.mov',
+        batch_size=256
     )
     print(bit_line)
+    print(time.time() - t)
+
+    t = time.time()
+    bit_line = prod_model(
+        video_path='../static/user_data/video/5e739b4d-3f1d-45ed-a8ca-c224ff3c9b28.mp4',
+        batch_size=256
+    )
+    print(bit_line)
+    print(time.time() - t)
+
+
+if __name__ == '__main__':
+    main()

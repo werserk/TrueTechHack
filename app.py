@@ -1,13 +1,13 @@
-import os.path
+import os
 
-from flask import abort, flash, Flask, redirect, render_template, request, url_for, jsonify
+from flask import abort, flash, Flask, jsonify, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, LoginManager, logout_user
 from werkzeug.security import check_password_hash
 
 from config import Config
 from extensions import db
 from forms import LoginForm, RegistrationForm, UploadForm
-from models import User, Video, VideoSettings, UserSettings
+from models import User, UserSettings, Video, VideoSettings
 from video_processing import process_video
 
 app = Flask(__name__)
@@ -78,10 +78,11 @@ def upload():
         brightness = user_settings.brightness
         contrast = user_settings.contrast
 
-        processed_video_path, preview_path = process_video(video)  # Modify this line
+        paths = process_video(video)  # Modify this line
         video_entry = Video(name=video.filename,
-                            video_filename=os.path.basename(processed_video_path),
-                            preview_filename=os.path.basename(preview_path),
+                            video_filename=os.path.basename(paths["video_path"]),
+                            preview_filename=os.path.basename(paths["preview_path"]),
+                            blur_timeline_filename=os.path.basename(paths["blur_timeline_path"]),
                             user_id=current_user.id)
         db.session.add(video_entry)
         db.session.commit()
@@ -118,8 +119,6 @@ def library():
 @login_required
 def player(video_id):
     video = Video.query.get_or_404(video_id)
-    print(video.video_settings)
-    print(video.video_settings.contrast)
     return render_template("player.html", video=video, video_settings=video.video_settings)
 
 

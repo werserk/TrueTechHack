@@ -31,6 +31,7 @@ class Video(db.Model):
     name = db.Column(db.String(255), nullable=False)
     video_filename = db.Column(db.String(255), nullable=False)
     preview_filename = db.Column(db.String(255), nullable=False)
+    blur_timeline_filename = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     video_settings = db.relationship('VideoSettings', backref='video', lazy=True, uselist=False)
 
