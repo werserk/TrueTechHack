@@ -135,4 +135,27 @@ def detect_image_issues(image):
         "epilepsy_detected": epilepsy_detected,
         "softened_image": softened_image
     }
+    
+  def display_image(image, is_epilepsy=False):
+    if is_epilepsy:
+        print("STOP! This image may trigger an epileptic seizure. Seek medical attention immediately.")
+        return
+    
+    # check for bright or flashing effects
+    is_flashing = detect_flashing(image)
+    if is_flashing:
+        print("This image contains flashing effects. It's recommended to avoid such effects for sensitive viewers.")
+    
+    # soften the image with a softbox if needed
+    if is_bright(image):
+        image = soften_with_softbox(image)
+    
+    # check for fast movement of the image with bright and flashing effects
+    is_fast_moving = detect_fast_movement(image)
+    if is_fast_moving:
+        print("This image contains fast movement with bright and flashing effects. It's recommended to avoid such effects for sensitive viewers.")
+    
+    # display the image
+    display(image)
+
 ```
