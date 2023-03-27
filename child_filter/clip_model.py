@@ -4,14 +4,16 @@ from clip_onnx import clip_onnx
 from typing import Optional
 from video_cutting import split_video
 
-# onnx cannot work with cuda
+
 model, preprocess = clip.load("ViT-B/32", device="cpu", jit=False)
 
-# batch first
 visual_path = "clip_visual.onnx"
 textual_path = "clip_textual.onnx"
 
-onnx_model = clip_onnx(model, visual_path=visual_path, textual_path=textual_path)
+onnx_model = clip_onnx(None)
+onnx_model.load_onnx(visual_path="visual.onnx",
+                     textual_path="textual.onnx",
+                     logit_scale=100.0000)
 onnx_model.start_sessions(providers=["CUDAExecutionProvider"])
 
 basic_promts = [
