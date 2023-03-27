@@ -45,7 +45,7 @@
 1. Дизайн самого плеера и функционала
 2. Бизнес логика
 
-
+# code
 ```python3
 import cv2
 import numpy as np
