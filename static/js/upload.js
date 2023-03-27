@@ -3,6 +3,7 @@ const fileInput = document.getElementById("file-input");
 const filename = document.getElementById("filename");
 const progressBar = document.getElementById("progress-bar");
 const form = document.getElementById("upload-form");
+const overlay = document.getElementById("overlay");
 
 dropzone.addEventListener("dragover", (event) => {
     event.preventDefault();
@@ -42,6 +43,7 @@ function handleFiles(files) {
     if (validateFiles(files)) {
         const file = files[0];
         dropzone.classList.add("valid");
+        overlay.style.display = "none";
 
         // Display filename
         filename.textContent = file.name;
@@ -66,8 +68,13 @@ function handleFiles(files) {
             progressBar.style.display = "none";
         });
         xhr.send(new FormData(form));
-
     } else {
         dropzone.classList.add("invalid");
     }
 }
+
+// Add this event listener
+form.addEventListener("submit", (event) => {
+    // Hide spinner
+    overlay.style.display = "flex";
+})

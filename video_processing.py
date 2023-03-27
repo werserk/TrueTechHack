@@ -6,6 +6,7 @@ import imageio
 import pandas as pd
 
 from config import Config
+from production_model import prod_model
 
 
 def allowed_video(file):
@@ -58,7 +59,7 @@ def process_video(video):
 
     bit_line = prod_model(video_path=path,
                           batch_size=256)
-    blur_timeline_path = os.path.join(Config.PREVIEW_UPLOAD_FOLDER, secure_filename(filename) + '.feather')
+    blur_timeline_path = os.path.join(Config.BLUR_TIMELINE_FOLDER, secure_filename(filename) + '.feather')
     save2feather(bit_line,
                  filename=blur_timeline_path)
 

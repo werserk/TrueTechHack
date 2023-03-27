@@ -9,8 +9,8 @@ from child_filter.video_cutting import split_video
 
 model, preprocess = clip.load("ViT-B/32", device="cuda", jit=True)
 
-visual_path = "weights/clip_visual.onnx"
-textual_path = "weights/clip_textual.onnx"
+visual_path = "child_filter/weights/clip_visual.onnx"
+textual_path = "child_filter/weights/clip_textual.onnx"
 
 onnx_model = clip_onnx(model)
 onnx_model.load_onnx(visual_path=visual_path,

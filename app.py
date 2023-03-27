@@ -78,7 +78,9 @@ def upload():
         brightness = user_settings.brightness
         contrast = user_settings.contrast
 
+        print('processing...')
         paths = process_video(video)  # Modify this line
+        print('ok!')
         video_entry = Video(name=video.filename,
                             video_filename=os.path.basename(paths["video_path"]),
                             preview_filename=os.path.basename(paths["preview_path"]),
