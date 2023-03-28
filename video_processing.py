@@ -57,11 +57,15 @@ def process_video(video):
     #
     #     path = output_path
 
-    bit_line = prod_model(video_path=path,
-                          batch_size=256)
+    bit_lines = prod_model(video_path=path,
+                           batch_size=1024)
     blur_timeline_path = os.path.join(Config.BLUR_TIMELINE_FOLDER, secure_filename(filename) + '.feather')
-    save2feather(bit_line,
+    save2feather(bit_lines['clip'],
                  filename=blur_timeline_path)
+
+    epilepsy_timeline_path = os.path.join(Config.EPILEPSY_TIMELINE_FOLDER, secure_filename(filename) + '.feather')
+    save2feather(bit_lines['epilepsy'],
+                 filename=epilepsy_timeline_path)
 
     # Save a frame for preview
     preview_path = os.path.join(Config.PREVIEW_UPLOAD_FOLDER, secure_filename(filename) + '.jpg')
@@ -71,4 +75,5 @@ def process_video(video):
 
     return {"video_path": path,
             "preview_path": preview_path,
-            "blur_timeline_path": blur_timeline_path}
+            "blur_timeline_path": blur_timeline_path,
+            "epilepsy_timeline_path": epilepsy_timeline_path}

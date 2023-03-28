@@ -92,6 +92,7 @@ def upload():
                             video_filename=os.path.basename(paths["video_path"]),
                             preview_filename=os.path.basename(paths["preview_path"]),
                             blur_timeline_filename=os.path.basename(paths["blur_timeline_path"]),
+                            epilepsy_timeline_filename=os.path.basename(paths["epilepsy_timeline_path"]),
                             user_id=current_user.id)
         db.session.add(video_entry)
         db.session.commit()
@@ -121,13 +122,25 @@ def edit_video_name(video_id):
     return redirect(url_for('player', video_id=video.id))
 
 
-@app.route("/video/<int:video_id>/labels")
+@app.route("/video/<int:video_id>/clip_labels")
 @login_required
-def get_video_labels(video_id):
+def get_clip_labels(video_id):
     video = Video.query.get_or_404(video_id)
 
     # Change the path to your Feather file based on the video_id
     feather_file = os.path.join(Config.BLUR_TIMELINE_FOLDER, video.blur_timeline_filename)
+    df = pd.read_feather(feather_file)
+    labels = list(df['data'])
+    return jsonify(labels)
+
+
+@app.route("/video/<int:video_id>/epilepsy_labels")
+@login_required
+def get_epilepsy_labels(video_id):
+    video = Video.query.get_or_404(video_id)
+
+    # Change the path to your Feather file based on the video_id
+    feather_file = os.path.join(Config.EPILEPSY_TIMELINE_FOLDER, video.epilepsy_timeline_filename)
     df = pd.read_feather(feather_file)
     labels = list(df['data'])
     return jsonify(labels)
@@ -153,6 +166,7 @@ def delete_video(video_id):
     video = Video.query.get_or_404(video_id)
     if video.user_id != current_user.id:
         abort(403)
+    db.session.delete(video.video_settings)
     db.session.delete(video)
     db.session.commit()
     os.remove(os.path.join(Config.VIDEO_UPLOAD_FOLDER, video.video_filename))

@@ -1,13 +1,18 @@
 const player = document.getElementById('videoPlayer');
+const epilepsyToggle = document.getElementById('checkbox-epilepsy');
+const clipToggle = document.getElementById('checkbox-clip');
 const brightness = document.getElementById('brightness');
 const contrast = document.getElementById('contrast');
 const saturation = document.getElementById('saturation');
 const hueRotate = document.getElementById('hue-rotate');
-const epilepsy = document.getElementById('epilepsy');
-const colorBlind = document.getElementById('color-blind');
 const videoId = parseInt(player.dataset.videoId, 10);
-const blurToggle = document.getElementById('blur-toggle');
 
+let clipLabels = [];
+let epilepsyLabels = [];
+let isClipToggleActive = false;
+let isEpilepsyToggleActive = false;
+let isClipActive = false;
+let isEpilepsyActive = false;
 
 function updateVideoSettings(brightness, contrast, saturate, hueRotate) {
     const xhr = new XMLHttpRequest();
@@ -25,35 +30,22 @@ function updateVideoSettings(brightness, contrast, saturate, hueRotate) {
 
 function updateFilter() {
     player.style.filter = `brightness(${brightness.value}%) contrast(${contrast.value}%) saturate(${saturation.value}%) hue-rotate(${hueRotate.value}deg)`;
-    if (isBlurred) {
+    if (isClipActive) {
         player.style.filter = player.style.filter + " blur(25px)";
     }
     updateVideoSettings(brightness.value / 100, contrast.value / 100, saturation.value / 100, hueRotate.value);
 }
 
-function toggleEpilepsyFilter() {
-    if (epilepsy.checked) {
-        player.style.animation = 'none';
-    } else {
-        player.style.animation = '';
-    }
-}
-
-function toggleColorBlindMode() {
-    if (colorBlind.checked) {
-        document.body.classList.add('color-blind-mode');
-    } else {
-        document.body.classList.remove('color-blind-mode');
-    }
-}
-
-let labels = [];
-let isBlurred = false;
-
 async function fetchLabels(videoId) {
     try {
-        const response = await fetch(`/video/${videoId}/labels`);
-        labels = await response.json();
+        const response = await fetch(`/video/${videoId}/clip_labels`);
+        clipLabels = await response.json();
+    } catch (error) {
+        console.error("Error fetching labels:", error);
+    }
+    try {
+        const response = await fetch(`/video/${videoId}/epilepsy_labels`);
+        epilepsyLabels = await response.json();
     } catch (error) {
         console.error("Error fetching labels:", error);
     }
@@ -64,38 +56,78 @@ fetchLabels(videoId).then(() => {
 });
 
 function checkFrameAndApplyBlur() {
-    const currentFrame = Math.floor(player.currentTime / player.duration * labels.length);
-    if (!blurToggle.checked) {
-        if (labels[currentFrame] === 1) {
-            if (!isBlurred) {
+    const currentFrame = Math.floor(player.currentTime / player.duration * clipLabels.length);
+    if (isClipToggleActive) {
+        if (clipLabels[currentFrame] === 1) {
+            if (!isClipActive) {
                 player.style.filter = `${player.style.filter} blur(25px)`;
-                isBlurred = true;
+                isClipActive = true;
             }
         } else {
-            if (isBlurred) {
+            if (isClipActive) {
                 player.style.filter = player.style.filter.replace("blur(25px)", "");
-                isBlurred = false;
+                isClipActive = false;
             }
         }
     } else {
-        if (isBlurred) {
+        if (isClipActive) {
             player.style.filter = player.style.filter.replace("blur(25px)", "");
-            isBlurred = false;
+            isClipActive = false;
+        }
+    }
+
+    if (isEpilepsyToggleActive) {
+        if (epilepsyLabels[currentFrame] === 1) {
+            if (!isEpilepsyActive) {
+                player.style.filter = `${player.style.filter} blur(25px)`;
+                isEpilepsyActive = true;
+            }
+        } else {
+            if (isEpilepsyActive) {
+                player.style.filter = player.style.filter.replace("blur(25px)", "");
+                isEpilepsyActive = false;
+            }
+        }
+    } else {
+        if (isEpilepsyActive) {
+            player.style.filter = player.style.filter.replace("blur(25px)", "");
+            isEpilepsyActive = false;
         }
     }
     requestAnimationFrame(checkFrameAndApplyBlur);
 }
 
+function toggleClipState() {
+    isClipToggleActive = !isClipToggleActive;
+    if (isClipToggleActive) {
+        clipToggle.classList.add("checked");
+    } else {
+        clipToggle.classList.remove("checked");
+    }
+}
+
+function toggleEpilepsyState() {
+    isEpilepsyToggleActive = !isEpilepsyToggleActive;
+    if (isEpilepsyToggleActive) {
+        epilepsyToggle.classList.add("checked");
+    } else {
+        epilepsyToggle.classList.remove("checked");
+    }
+}
+
+window.player = new Plyr('video', {
+    speed: {
+        selected: 1,
+        options: [0.5, 0.75, 0.9, 1, 1.1, 1.25, 1.5, 2]
+    }
+});
 requestAnimationFrame(checkFrameAndApplyBlur);
-
-
-window.player = new Plyr('video');
 updateFilter();
 
 // Set up event listeners for the input elements
+clipToggle.addEventListener("click", toggleClipState);
+epilepsyToggle.addEventListener("click", toggleEpilepsyState);
 brightness.addEventListener('input', updateFilter);
 contrast.addEventListener('input', updateFilter);
 saturation.addEventListener('input', updateFilter);
 hueRotate.addEventListener('input', updateFilter);
-epilepsy.addEventListener('change', toggleEpilepsyFilter);
-colorBlind.addEventListener('change', toggleColorBlindMode);
