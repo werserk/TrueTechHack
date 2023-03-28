@@ -42,7 +42,11 @@ def register():
         db.session.commit()
 
         # Create a UserSettings entry for the new user with default brightness and contrast values
-        user_settings = UserSettings(brightness=1.0, contrast=1.0, user_id=user.id)
+        user_settings = UserSettings(brightness=1.0,
+                                     contrast=1.0,
+                                     saturate=1.0,
+                                     hueRotate=0.0,
+                                     user_id=user.id)
         db.session.add(user_settings)
         db.session.commit()
 
@@ -78,6 +82,8 @@ def upload():
         user_settings = current_user.settings
         brightness = user_settings.brightness
         contrast = user_settings.contrast
+        saturate = user_settings.saturate
+        hueRotate = user_settings.hueRotate
 
         print('processing...')
         paths = process_video(video)  # Modify this line
@@ -91,7 +97,11 @@ def upload():
         db.session.commit()
 
         # Create VideoSettings entry with custom brightness and contrast values (if any)
-        video_settings = VideoSettings(brightness=brightness, contrast=contrast, video_id=video_entry.id)
+        video_settings = VideoSettings(brightness=brightness,
+                                       contrast=contrast,
+                                       saturate=saturate,
+                                       hueRotate=hueRotate,
+                                       video_id=video_entry.id)
         db.session.add(video_settings)
         db.session.commit()
 
@@ -164,6 +174,8 @@ def logout():
 def update_video_settings(video_id):
     brightness = request.form.get('brightness', type=float)
     contrast = request.form.get('contrast', type=float)
+    saturate = request.form.get('saturate', type=float)
+    hueRotate = request.form.get('hueRotate', type=float)
 
     video = Video.query.get_or_404(video_id)
     if video.user_id != current_user.id:
@@ -171,6 +183,8 @@ def update_video_settings(video_id):
 
     video.video_settings.brightness = brightness
     video.video_settings.contrast = contrast
+    video.video_settings.saturate = saturate
+    video.video_settings.hueRotate = hueRotate
     db.session.commit()
 
     return jsonify({"message": "Video settings updated successfully"})

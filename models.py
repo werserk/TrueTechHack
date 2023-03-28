@@ -23,6 +23,8 @@ class UserSettings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     brightness = db.Column(db.Float, nullable=False, default=1.0)
     contrast = db.Column(db.Float, nullable=False, default=1.0)
+    saturate = db.Column(db.Float, nullable=False, default=1.0)
+    hueRotate = db.Column(db.Float, nullable=False, default=0.0)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
 

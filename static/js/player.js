@@ -6,6 +6,7 @@ const hueRotate = document.getElementById('hue-rotate');
 const epilepsy = document.getElementById('epilepsy');
 const colorBlind = document.getElementById('color-blind');
 const videoId = parseInt(player.dataset.videoId, 10);
+const blurToggle = document.getElementById('blur-toggle');
 
 
 function updateVideoSettings(brightness, contrast, saturate, hueRotate) {
@@ -24,7 +25,7 @@ function updateVideoSettings(brightness, contrast, saturate, hueRotate) {
 
 function updateFilter() {
     player.style.filter = `brightness(${brightness.value}%) contrast(${contrast.value}%) saturate(${saturation.value}%) hue-rotate(${hueRotate.value}deg)`;
-    updateVideoSettings(brightness.value / 100, contrast.value / 100, saturation.value / 100, hueRotate.value / 100);
+    updateVideoSettings(brightness.value / 100, contrast.value / 100, saturation.value / 100, hueRotate.value);
 }
 
 function toggleEpilepsyFilter() {
@@ -44,6 +45,7 @@ function toggleColorBlindMode() {
 }
 
 let labels = [];
+let isBlurred = false;
 
 async function fetchLabels(videoId) {
     try {
@@ -58,16 +60,25 @@ fetchLabels(videoId).then(() => {
     requestAnimationFrame(checkFrameAndApplyBlur);
 });
 
-const frameRate = 30;
-const timePerFrame = 1 / frameRate;
-
 function checkFrameAndApplyBlur() {
-    const currentFrame = Math.floor(player.currentTime * timePerFrame);
-    const currentFilter = player.style.filter;
-    if (labels[currentFrame] === 1) {
-        player.style.filter = `${currentFilter} blur(25px)`;
+    const currentFrame = Math.floor(player.currentTime / player.duration * labels.length);
+    if (!blurToggle.checked) {
+        if (labels[currentFrame] === 1) {
+            if (!isBlurred) {
+                player.style.filter = `${player.style.filter} blur(25px)`;
+                isBlurred = true;
+            }
+        } else {
+            if (isBlurred) {
+                player.style.filter = player.style.filter.replace("blur(25px)", "");
+                isBlurred = false;
+            }
+        }
     } else {
-        player.style.filter = currentFilter.replace(/blur\(25px\)/g, "").trim();
+        if (isBlurred) {
+            player.style.filter = player.style.filter.replace("blur(25px)", "");
+            isBlurred = false;
+        }
     }
     requestAnimationFrame(checkFrameAndApplyBlur);
 }
