@@ -1,5 +1,6 @@
 import os
 
+import pandas as pd
 from flask import abort, flash, Flask, jsonify, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, LoginManager, logout_user
 from werkzeug.security import check_password_hash
@@ -108,6 +109,18 @@ def edit_video_name(video_id):
     db.session.commit()
     flash("Name changed successfully!", "success")
     return redirect(url_for('player', video_id=video.id))
+
+
+@app.route("/video/<int:video_id>/labels")
+@login_required
+def get_video_labels(video_id):
+    video = Video.query.get_or_404(video_id)
+
+    # Change the path to your Feather file based on the video_id
+    feather_file = os.path.join(Config.BLUR_TIMELINE_FOLDER, video.blur_timeline_filename)
+    df = pd.read_feather(feather_file)
+    labels = list(df['data'])
+    return jsonify(labels)
 
 
 @app.route('/library', methods=['GET'])

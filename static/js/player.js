@@ -23,13 +23,8 @@ function updateVideoSettings(brightness, contrast) {
 }
 
 function updateFilter() {
-    const brightnessValue = brightness.value;
-    const contrastValue = contrast.value;
-    const saturationValue = saturation.value;
-    const hueRotateValue = hueRotate.value;
-
-    player.style.filter = `brightness(${brightnessValue}%) contrast(${contrastValue}%) saturate(${saturationValue}%) hue-rotate(${hueRotateValue}deg)`;
-    updateVideoSettings(brightnessValue / 100, contrastValue / 100);
+    player.style.filter = `brightness(${brightness.value}%) contrast(${contrast.value}%) saturate(${saturation.value}%) hue-rotate(${hueRotate.value}deg)`;
+    updateVideoSettings(brightness.value / 100, contrast.value / 100);
 }
 
 function toggleEpilepsyFilter() {
@@ -48,7 +43,38 @@ function toggleColorBlindMode() {
     }
 }
 
-window.player = new Plyr('video', {});
+let labels = [];
+
+async function fetchLabels(videoId) {
+    try {
+        const response = await fetch(`/video/${videoId}/labels`);
+        labels = await response.json();
+    } catch (error) {
+        console.error("Error fetching labels:", error);
+    }
+}
+
+fetchLabels(videoId).then(() => {
+    requestAnimationFrame(checkFrameAndApplyBlur);
+});
+
+const frameRate = 30; // Change this according to your video's frame rate
+const timePerFrame = 1 / frameRate;
+
+function checkFrameAndApplyBlur() {
+    const currentFrame = Math.floor(player.currentTime * timePerFrame);
+    if (labels[currentFrame] === 1) {
+        player.style.filter = "blur(25px)";
+    } else {
+        player.style.filter = "";
+    }
+    requestAnimationFrame(checkFrameAndApplyBlur);
+}
+
+requestAnimationFrame(checkFrameAndApplyBlur);
+
+
+window.player = new Plyr('video');
 
 // Set up event listeners for the input elements
 brightness.addEventListener('input', updateFilter);

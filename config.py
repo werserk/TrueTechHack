@@ -9,5 +9,5 @@ class Config:
     PREVIEW_UPLOAD_FOLDER = 'static/user_data/preview'
     BLUR_TIMELINE_FOLDER = 'static/user_data/blur_timeline'
     MAX_VIDEO_LENGTH_SECONDS = 5 * 60
-    ALLOWED_VIDEO_EXTENSIONS = ["mp4", "avi", "wmv", "mov", "mkv"]
+    ALLOWED_VIDEO_EXTENSIONS = ["mp4", "mov"]
     # Add other configuration settings as needed, e.g., storage provider API keys

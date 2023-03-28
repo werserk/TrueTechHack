@@ -169,10 +169,26 @@
 }
 
 .video-card {
+    display: inline-block;
+    position: relative;
+}
+
+.video-card::before {
+    background: rgba(255, 255, 255, 0.5);
+    content: '';
+    display: block;
+    filter: blur(15px);
+    height: 100%;
+    left: 0;
+    pointer-events: none; /* Disable interaction with the overlay */
+    position: absolute;
+    top: 0;
     width: 100%;
 }
 
+
 .video-card video {
+    display: block;
     width: 100%;
 }
 

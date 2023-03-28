@@ -34,7 +34,7 @@ fileInput.addEventListener("change", () => {
 });
 
 function validateFiles(files) {
-    const allowedExtensions = ["mp4", "avi", "wmv", "mov", "mkv"];
+    const allowedExtensions = ["mp4", "mov"];
     const fileExtension = files[0].name.split(".").pop().toLowerCase();
     return allowedExtensions.includes(fileExtension);
 }

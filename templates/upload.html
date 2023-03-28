@@ -14,7 +14,7 @@
         <form id="upload-form" method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
             <div id="dropzone" class="dropzone">
                 <p style="color: lightgrey;">Drop files here or click to upload</p>
-                <input type="file" id="file-input" name="video" style="display: none;" accept=".mp4, .avi, .wmv, .mov, .mkv">
+                <input type="file" id="file-input" name="video" style="display: none;" accept=".mp4, .mov">
                 <span id="filename" style="display: none; color: lightgrey;"></span>
                 <progress id="progress-bar" value="0" max="100"></progress>
             </div>

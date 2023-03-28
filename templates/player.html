@@ -25,8 +25,7 @@
         </div>
 
         <!-- Video -->
-        <div class="video-card">
-            <canvas id="canvas"></canvas>
+        <div class="video-card" id="video-holder">
             <video id="videoPlayer" data-video-id="{{ video.id }}"
                    style="filter: brightness({{ video.video_settings.brightness }}) contrast({{ video.video_settings.contrast }});"
                    width="50%" controls playsinline preload="metadata">
