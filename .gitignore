@@ -8,3 +8,4 @@ static/user_data/video/*
 static/user_data/preview/*
 static/user_data/blur_timeline/*
 child_filter/weights/*
+node_modules/

@@ -38,6 +38,8 @@ class Video(db.Model):
 
 class VideoSettings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    brightness = db.Column(db.Float, nullable=True)
-    contrast = db.Column(db.Float, nullable=True)
+    brightness = db.Column(db.Float, nullable=False)
+    contrast = db.Column(db.Float, nullable=False)
+    saturate = db.Column(db.Float, nullable=False)
+    hueRotate = db.Column(db.Float, nullable=False)
     video_id = db.Column(db.Integer, db.ForeignKey("video.id"), nullable=False)

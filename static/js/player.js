@@ -8,7 +8,7 @@ const colorBlind = document.getElementById('color-blind');
 const videoId = parseInt(player.dataset.videoId, 10);
 
 
-function updateVideoSettings(brightness, contrast) {
+function updateVideoSettings(brightness, contrast, saturate, hueRotate) {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', `/update_video_settings/${videoId}`);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -19,12 +19,12 @@ function updateVideoSettings(brightness, contrast) {
             console.error('Failed to update video settings');
         }
     };
-    xhr.send(`brightness=${brightness}&contrast=${contrast}`);
+    xhr.send(`brightness=${brightness}&contrast=${contrast}&saturate=${saturate}&hueRotate=${hueRotate}`);
 }
 
 function updateFilter() {
     player.style.filter = `brightness(${brightness.value}%) contrast(${contrast.value}%) saturate(${saturation.value}%) hue-rotate(${hueRotate.value}deg)`;
-    updateVideoSettings(brightness.value / 100, contrast.value / 100);
+    updateVideoSettings(brightness.value / 100, contrast.value / 100, saturation.value / 100, hueRotate.value / 100);
 }
 
 function toggleEpilepsyFilter() {
@@ -58,15 +58,16 @@ fetchLabels(videoId).then(() => {
     requestAnimationFrame(checkFrameAndApplyBlur);
 });
 
-const frameRate = 30; // Change this according to your video's frame rate
+const frameRate = 30;
 const timePerFrame = 1 / frameRate;
 
 function checkFrameAndApplyBlur() {
     const currentFrame = Math.floor(player.currentTime * timePerFrame);
+    const currentFilter = player.style.filter;
     if (labels[currentFrame] === 1) {
-        player.style.filter = "blur(25px)";
+        player.style.filter = `${currentFilter} blur(25px)`;
     } else {
-        player.style.filter = "";
+        player.style.filter = currentFilter.replace(/blur\(25px\)/g, "").trim();
     }
     requestAnimationFrame(checkFrameAndApplyBlur);
 }

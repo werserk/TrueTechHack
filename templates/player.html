@@ -27,7 +27,12 @@
         <!-- Video -->
         <div class="video-card" id="video-holder">
             <video id="videoPlayer" data-video-id="{{ video.id }}"
-                   style="filter: brightness({{ video.video_settings.brightness }}) contrast({{ video.video_settings.contrast }});"
+                   style="filter:
+                           brightness({{ video.video_settings.brightness }})
+                           contrast({{ video.video_settings.contrast }})
+                           saturate({{ video.video_setting.saturate }})
+                           hue-rotate({{  video.video_setting.hueRotate }});
+                           "
                    width="50%" controls playsinline preload="metadata">
                 <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/mp4">
                 <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/x-msvideo">
