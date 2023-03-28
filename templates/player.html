@@ -28,11 +28,10 @@
         <div class="video-card" id="video-holder">
             <video id="videoPlayer" data-video-id="{{ video.id }}"
                    style="filter:
-                           brightness({{ video.video_settings.brightness }})
-                           contrast({{ video.video_settings.contrast }})
-                           saturate({{ video.video_settings.saturate }})
+                           brightness({{ video.video_settings.brightness * 100 }})
+                           contrast({{ video.video_settings.contrast * 100 }})
+                           saturate({{ video.video_settings.saturate * 100 }})
                            hue-rotate({{ video.video_settings.hueRotate }})
-                           blur(0px)
                            "
                    width="50%" controls playsinline preload="metadata">
                 <source src="{{ url_for('static', filename='user_data/video/' + video.video_filename ) }}" type="video/mp4">

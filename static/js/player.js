@@ -25,6 +25,9 @@ function updateVideoSettings(brightness, contrast, saturate, hueRotate) {
 
 function updateFilter() {
     player.style.filter = `brightness(${brightness.value}%) contrast(${contrast.value}%) saturate(${saturation.value}%) hue-rotate(${hueRotate.value}deg)`;
+    if (isBlurred) {
+        player.style.filter = player.style.filter + " blur(25px)";
+    }
     updateVideoSettings(brightness.value / 100, contrast.value / 100, saturation.value / 100, hueRotate.value);
 }
 
@@ -87,6 +90,7 @@ requestAnimationFrame(checkFrameAndApplyBlur);
 
 
 window.player = new Plyr('video');
+updateFilter();
 
 // Set up event listeners for the input elements
 brightness.addEventListener('input', updateFilter);
