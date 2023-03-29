@@ -12,6 +12,7 @@
         <div class="input">
             <input type="text" class="input-field" name="link" id="link">
             <label for="link" class="input-label">Type link to YouTube video/stream</label>
+            <a href="{{ url_for('youtube_player') }}" class="input-button" id="inputButton">Add</a>
         </div>
         <div class="video-grid">
             {% for video in videos %}

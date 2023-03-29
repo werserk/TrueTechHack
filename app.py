@@ -1,4 +1,5 @@
 import os
+import re
 
 import pandas as pd
 from flask import abort, flash, Flask, jsonify, redirect, render_template, request, url_for
@@ -149,6 +150,24 @@ def get_epilepsy_labels(video_id):
 def profile():
     user = User.query.get_or_404(current_user.id)
     return render_template('profile.html', user_settings=user.settings)
+
+
+def extract_youtube_id(link):
+    youtube_id_match = re.search(r'v=([0-9A-Za-z_-]{10}[048AEIMQUYcgkosw])', link)
+    if youtube_id_match:
+        return youtube_id_match.group(1)
+    return None
+
+
+@app.route("/youtube_player")
+@login_required
+def youtube_player():
+    link = "https://www.youtube.com/watch?v=jfKfPfyJRdk"  # Replace with your YouTube link
+    youtube_id = extract_youtube_id(link)
+    return render_template('youtube_player.html',
+                           name="Just a Video",
+                           youtube_id=youtube_id,
+                           user_settings=current_user.settings)
 
 
 @app.route("/profile_settings_update", methods=['POST'])
