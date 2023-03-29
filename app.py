@@ -85,9 +85,7 @@ def upload():
         saturate = user_settings.saturate
         hueRotate = user_settings.hueRotate
 
-        print('processing...')
         paths = process_video(video)  # Modify this line
-        print('ok!')
         video_entry = Video(name=video.filename,
                             video_filename=os.path.basename(paths["video_path"]),
                             preview_filename=os.path.basename(paths["preview_path"]),
@@ -144,6 +142,32 @@ def get_epilepsy_labels(video_id):
     df = pd.read_feather(feather_file)
     labels = list(df['data'])
     return jsonify(labels)
+
+
+@app.route("/profile")
+@login_required
+def profile():
+    user = User.query.get_or_404(current_user.id)
+    return render_template('profile.html', user_settings=user.settings)
+
+
+@app.route("/profile_settings_update", methods=['POST'])
+@login_required
+def profile_settings_update():
+    brightness = request.form.get('brightness', type=float)
+    contrast = request.form.get('contrast', type=float)
+    saturate = request.form.get('saturate', type=float)
+    hueRotate = request.form.get('hueRotate', type=float)
+
+    user = User.query.get_or_404(current_user.id)
+
+    user.settings.brightness = brightness
+    user.settings.contrast = contrast
+    user.settings.saturate = saturate
+    user.settings.hueRotate = hueRotate
+    db.session.commit()
+
+    return jsonify({"message": "User settings updated successfully"})
 
 
 @app.route('/library', methods=['GET'])
