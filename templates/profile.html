@@ -8,9 +8,6 @@
 {% endblock %}
 
 {% block content %}
-    <a href="{{ url_for('logout') }}" class="action-button small">
-        <span class="material-symbols-outlined">logout</span>
-    </a>
     <div class="container mt-4">
         <!-- Images -->
         <div class="mt-4">
@@ -41,6 +38,9 @@
                 </div>
             </div>
         </div>
+        <a href="{{ url_for('logout') }}" class="action-button small">
+            <span class="material-symbols-outlined">logout</span>
+        </a>
     </div>
     <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
     <script src="/static/js/profile.js"></script>

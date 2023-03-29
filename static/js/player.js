@@ -118,7 +118,7 @@ function toggleEpilepsyState() {
 window.player = new Plyr('video', {
     speed: {
         selected: 1,
-        options: [0.5, 0.75, 0.9, 1, 1.1, 1.25, 1.5, 2]
+        options: [0.5, 0.7, 0.8, 0.9, 1, 1.1, 1.25, 1.5, 2]
     }
 });
 requestAnimationFrame(checkFrameAndApplyBlur);

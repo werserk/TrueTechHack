@@ -10,9 +10,11 @@
     <div class="container">
         <h2>Video Library</h2>
         <div class="input">
-            <input type="text" class="input-field" name="link" id="link">
-            <label for="link" class="input-label">Type link to YouTube video/stream</label>
-            <a href="{{ url_for('youtube_player') }}" class="input-button" id="inputButton">Add</a>
+            <input type="text" class="input-field" name="linkHolder" id="linkHolder">
+            <label for="linkHolder" class="input-label">Type link to YouTube video/stream</label>
+            <button class="input-button" id="inputButton">
+                <span class="material-symbols-outlined right">search</span>
+            </button>
         </div>
         <div class="video-grid">
             {% for video in videos %}
