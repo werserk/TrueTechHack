@@ -1,0 +1,47 @@
+{% extends "header.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css">
+    <link rel="stylesheet" href="/static/css/card.css">
+    <link rel="stylesheet" href="/static/css/player.css">
+    <link rel="stylesheet" href="/static/css/profile.css">
+{% endblock %}
+
+{% block content %}
+    <a href="{{ url_for('logout') }}" class="action-button small">
+        <span class="material-symbols-outlined">logout</span>
+    </a>
+    <div class="container mt-4">
+        <!-- Images -->
+        <div class="mt-4">
+        </div>
+
+        <div class="mt-4">
+            <!-- Sliders -->
+            <div class="slider-grid">
+                <div class="slider-container">
+                    <label class="slider-label" for="brightness">Brightness:</label>
+                    <input class="slider" type="range" id="brightness" name="brightness" min="0" max="200"
+                           value="{{ user_settings.brightness * 100 }}">
+                </div>
+                <div class="slider-container">
+                    <label class="slider-label" for="contrast">Contrast:</label>
+                    <input class="slider" type="range" id="contrast" name="contrast" min="0" max="200"
+                           value="{{ user_settings.contrast * 100 }}">
+                </div>
+                <div class="slider-container">
+                    <label class="slider-label" for="saturation">Saturation:</label>
+                    <input class="slider" type="range" id="saturation" name="saturation" min="0" max="200"
+                           value="{{ user_settings.saturate * 100 }}">
+                </div>
+                <div class="slider-container">
+                    <label class="slider-label" for="hue-rotate">HUE:</label>
+                    <input class="slider" type="range" id="hue-rotate" name="hue-rotate" min="0" max="360"
+                           value="{{ user_settings.hueRotate }}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+    <script src="/static/js/profile.js"></script>
+{% endblock %}

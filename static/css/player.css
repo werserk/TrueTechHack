@@ -175,6 +175,11 @@ button.checked {
 .video-card {
     display: inline-block;
     position: relative;
+    width: 100%;
+}
+
+#videoPlayer {
+    width: 100%;
 }
 
 .video-card::before {
@@ -190,8 +195,7 @@ button.checked {
     width: 100%;
 }
 
-
-.video-card video {
+.video-card #videoPlayer {
     display: block;
     width: 100%;
 }

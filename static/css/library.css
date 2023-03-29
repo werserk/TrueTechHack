@@ -97,3 +97,27 @@
     white-space: nowrap;
     width: 100%;
 }
+
+.input-button {
+    background-color: #cb2828;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    padding: 0.5em 1em;
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: background-color 0.3s;
+}
+
+.input-button:hover {
+    background-color: #a61f1f;
+}
+
+.input-button:focus {
+    outline: none;
+}

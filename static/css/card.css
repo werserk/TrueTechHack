@@ -81,12 +81,12 @@ a.main {
     z-index: 1;
 }
 
-.input-field:focus, .input-field:valid, .input-field.not-empty {
+.input-field:focus, .input-field.not-empty {
     border-bottom-color: #cb2828;
     outline: 0;
 }
 
-.input-field:focus + .input-label, .input-field:valid + .input-label, .input-field.not-empty + .input-label {
+.input-field:focus + .input-label, .input-field.not-empty + .input-label {
     color: #cb2828;
     transform: translateY(-1.5rem);
 }

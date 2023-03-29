@@ -1,4 +1,5 @@
 import os
+import re
 
 import pandas as pd
 from flask import abort, flash, Flask, jsonify, redirect, render_template, request, url_for
@@ -85,9 +86,7 @@ def upload():
         saturate = user_settings.saturate
         hueRotate = user_settings.hueRotate
 
-        print('processing...')
         paths = process_video(video)  # Modify this line
-        print('ok!')
         video_entry = Video(name=video.filename,
                             video_filename=os.path.basename(paths["video_path"]),
                             preview_filename=os.path.basename(paths["preview_path"]),
@@ -144,6 +143,50 @@ def get_epilepsy_labels(video_id):
     df = pd.read_feather(feather_file)
     labels = list(df['data'])
     return jsonify(labels)
+
+
+@app.route("/profile")
+@login_required
+def profile():
+    user = User.query.get_or_404(current_user.id)
+    return render_template('profile.html', user_settings=user.settings)
+
+
+def extract_youtube_id(link):
+    youtube_id_match = re.search(r'v=([0-9A-Za-z_-]{10}[048AEIMQUYcgkosw])', link)
+    if youtube_id_match:
+        return youtube_id_match.group(1)
+    return None
+
+
+@app.route("/youtube_player")
+@login_required
+def youtube_player():
+    link = "https://www.youtube.com/watch?v=jfKfPfyJRdk"  # Replace with your YouTube link
+    youtube_id = extract_youtube_id(link)
+    return render_template('youtube_player.html',
+                           name="Just a Video",
+                           youtube_id=youtube_id,
+                           user_settings=current_user.settings)
+
+
+@app.route("/profile_settings_update", methods=['POST'])
+@login_required
+def profile_settings_update():
+    brightness = request.form.get('brightness', type=float)
+    contrast = request.form.get('contrast', type=float)
+    saturate = request.form.get('saturate', type=float)
+    hueRotate = request.form.get('hueRotate', type=float)
+
+    user = User.query.get_or_404(current_user.id)
+
+    user.settings.brightness = brightness
+    user.settings.contrast = contrast
+    user.settings.saturate = saturate
+    user.settings.hueRotate = hueRotate
+    db.session.commit()
+
+    return jsonify({"message": "User settings updated successfully"})
 
 
 @app.route('/library', methods=['GET'])
