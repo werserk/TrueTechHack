@@ -21,9 +21,6 @@
         {% if current_user.is_authenticated %}
             <a class="left" href="{{ url_for('library') }}">My Videos</a>
             <a class="left" href="{{ url_for('upload') }}">Upload</a>
-{#            <a href="{{ url_for('profile') }}">#}
-{#                <span class="material-symbols-outlined right">person</span>#}
-{#            </a>#}
             <a href="{{ url_for('profile') }}">
                 <span class="material-symbols-outlined right">person</span>
             </a>

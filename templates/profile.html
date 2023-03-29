@@ -4,9 +4,13 @@
     <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css">
     <link rel="stylesheet" href="/static/css/card.css">
     <link rel="stylesheet" href="/static/css/player.css">
+    <link rel="stylesheet" href="/static/css/profile.css">
 {% endblock %}
 
 {% block content %}
+    <a href="{{ url_for('logout') }}" class="action-button small">
+        <span class="material-symbols-outlined">logout</span>
+    </a>
     <div class="container mt-4">
         <!-- Images -->
         <div class="mt-4">
